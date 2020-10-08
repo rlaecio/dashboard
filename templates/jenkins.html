@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}Jenkins{% endblock title %} {% block content %}
+<div class="container">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h1 class="panel-title clearfix">Jenkins</h1>
+        </div>
+        <div class="panel-body">
+            <div class="table-responsive">
+                
+                <table class="table table-striped table-responsive">	              
+                    <thead>	                    
+                        <tr>	
+                            <th>Job</th>	
+                            <th>Status</th>	
+                            <th>Ultima vez</th>	
+                            <th>Ações</th>	
+                        </tr>	
+                    </thead>	
+                    <tbody>	
+                        {% for job in jobs %}
+                        <tr>
+                            <td>{{ job.fullName }}</td>
+                            <td>
+                                <img src="http://192.168.1.10:8080/static/efbfe80a/images/16x16/health-80plus.png" alt="Icon"> 
+                            </td>
+                            <td> 
+                                {% if not job.firstBuild %}
+                                    Nunca buildou
+                                {% elif job.lastSuccessfulBuild.number == job.nextBuildNumber - 1 %}
+                                    Sucesso
+                                {% else%}
+                                    Falha
+                                {% endif %}
+                            </td>
+                            <td>
+                                <a href="/jenkins/build/{{ job.fullName }}" class="glyphicon glyphicon-repeat"></a>
+                                <a href="/jenkins/update/{{ job.fullName }}" class="glyphicon glyphicon-pencil"></a>
+                            </td>
+                         </tr>
+                    
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

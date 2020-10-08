@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Docker{% endblock title %} {% block content %}
+<div class="container">
+    {% block alert %}{{ super() }}{% endblock %}
+    <div class="row">
+        <div class="col-sm-12 col-md-6 col-md-offset-3">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h1 class="panel-title clearfix">Docker</h1>
+                </div>
+                <div class="panel-body">
+                    {% if container %}
+                    <h1>{{ container.nome }}</h1>
+                    <ul class="list-group">
+                        <li class="list-group-item"><b><i class="glyphicon glyphicon-barcode"></i> ID:</b>{{ container.id }}</li>
+                        <li class="list-group-item"><b><i class="glyphicon glyphicon-film"></i> Imagem:</b>{{ container.imagem }}</li>
+                        <li class="list-group-item"><b><i class="glyphicon glyphicon-stats"></i> Status:</b>{{ container.status }}</li>
+                    </ul>
+                    <div class="row">
+
+                        <div class="col-sm-12 text-center">
+                            {% if container.status != 'running' %}
+                            <a href="/docker/start" class="btn btn-primary">Iniciar</a>
+                            {% else %}
+                            <a href="/docker/stop" class="btn btn-warning">Parar</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% else %}
+                    <p>Container <b>"flask-app"</b> não foi encontrado</p>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
