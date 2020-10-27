@@ -1,2 +1,2 @@
 # dashboard
- Python Dashboas Sysadmin with flask
+ Python Dashboard Sysadmin with flask
